@@ -173,7 +173,8 @@ async def google_webhook(request: Request):
     try:
         body = await request.json()
         user_input = body.get("queryResult", {}).get("queryText", "")
-        response_text = await call_geminiapi(user_input)
+        result = await call_geminiapi(user_input)
+        response_text = result["response"]
         return {
             "fulfillmentMessages": [
                 {
